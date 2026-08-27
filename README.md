@@ -5,7 +5,7 @@
 
 ---
 
-## Table of Contents
+## Table of Contents   
 
 * [1. What Problem Do Lambdas Solve?](#1-what-problem-do-lambdas-solve)
 * [2. Lambda Expression](#2-lambda-expression)
