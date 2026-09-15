@@ -109,179 +109,88 @@ public class LambdaDeepDive {
     int value = 100;
 
     void thisInsideLambda() {
-
         Runnable task = () -> {
-
-            /*
-             * 'this' refers to the enclosing
-             * LambdaDeepDive object.
-             *
-             * Lambda does NOT create its own 'this'.
-             */
-
-            System.out.println(
-                    "this.value = " + this.value
+            System.out.println( "this.value = " + this.value
             );
         };
 
         task.run();
     }
-
-
     // ============================================================
     // 7. METHOD REFERENCE
     // ============================================================
 
     static void methodReference() {
 
-        List<String> names = List.of(
-                "Vishal",
-                "Rahul",
-                "Amit"
-        );
-
-
+        List<String> names = List.of( "Vishal",  "Rahul",   "Amit" );
         // Lambda
-        names.forEach(
-                name -> System.out.println(name)
-        );
-
-
+        names.forEach(    name -> System.out.println(name)   );
         // Method reference
-        names.forEach(
-                System.out::println
-        );
-
-
-        /*
-         * Lambda:
-         *
-         * name -> System.out.println(name)
-         *
-         * Method reference:
-         *
-         * System.out::println
-         */
+        names.forEach(   System.out::println  );
     }
 
 
     // ============================================================
     // 8. DIFFERENT METHOD REFERENCE TYPES
     // ============================================================
-
     static void methodReferenceTypes() {
-
         // --------------------------------------------------------
         // STATIC METHOD REFERENCE
         // --------------------------------------------------------
-
-        Function<String, Integer> parse =
-                Integer::parseInt;
-
+        Function<String, Integer> parse =  Integer::parseInt;
         System.out.println(
                 parse.apply("100")
         );
-
-
         // Equivalent lambda:
-
-        Function<String, Integer> parse2 =
-                s -> Integer.parseInt(s);
-
-
+        Function<String, Integer> parse2 =  s -> Integer.parseInt(s);
         // --------------------------------------------------------
         // INSTANCE METHOD OF PARTICULAR OBJECT
-        // --------------------------------------------------------
+        // -------------------------------------------------------
 
         String prefix = "Hello ";
 
-        Function<String, String> addPrefix =
-                prefix::concat;
+        Function<String, String> addPrefix = prefix::concat;
 
         System.out.println(
                 addPrefix.apply("Vishal")
         );
-
-
         // --------------------------------------------------------
         // INSTANCE METHOD OF ARBITRARY OBJECT
         // --------------------------------------------------------
+        Function<String, String> upper =  String::toUpperCase;
 
-        Function<String, String> upper =
-                String::toUpperCase;
-
-        System.out.println(
-                upper.apply("hello")
+        System.out.println(upper.apply("hello")
         );
-
-
         // Equivalent:
-
-        Function<String, String> upper2 =
-                s -> s.toUpperCase();
-
-
+        Function<String, String> upper2 =   s -> s.toUpperCase();
         // --------------------------------------------------------
         // CONSTRUCTOR REFERENCE
         // --------------------------------------------------------
+        Supplier<ArrayList<String>> listCreator =  ArrayList::new;
 
-        Supplier<ArrayList<String>> listCreator =
-                ArrayList::new;
-
-        ArrayList<String> list =
-                listCreator.get();
-
+        ArrayList<String> list = listCreator.get();
         list.add("Java");
-
         System.out.println(list);
     }
-
-
     // ============================================================
     // 9. PREDICATE COMPOSITION
     // ============================================================
-
     static void predicateComposition() {
+        Predicate<Integer> positive =  x -> x > 0;
 
-        Predicate<Integer> positive =
-                x -> x > 0;
-
-        Predicate<Integer> even =
-                x -> x % 2 == 0;
-
-
-        /*
-         * Combine two predicates.
-         */
-
+        Predicate<Integer> even = x -> x % 2 == 0;
         Predicate<Integer> positiveEven =
-                positive.and(even);
-
-
-        System.out.println(
-                positiveEven.test(10)
+        positive.and(even);
+        System.out.println(   positiveEven.test(10)
         );
-
-        System.out.println(
-                positiveEven.test(-10)
+        System.out.println(   positiveEven.test(-10)
         );
-
-
-        /*
-         * OR
-         */
-
         Predicate<Integer> positiveOrEven =
                 positive.or(even);
 
         System.out.println(
                 positiveOrEven.test(-10)
         );
-
-
-        /*
-         * NEGATE
-         */
 
         Predicate<Integer> odd =
                 even.negate();
