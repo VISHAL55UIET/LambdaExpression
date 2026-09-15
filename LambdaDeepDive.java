@@ -507,66 +507,14 @@ public class LambdaDeepDive {
                 new Thread(task);
 
         thread.start();
-
-
-        /*
-         * Shorter:
-         *
-         * new Thread(() ->
-         *     System.out.println("Running")
-         * ).start();
-         */
     }
 
 
     // ============================================================
     // 15. LAMBDA + COMPLETABLE FUTURE
     // ============================================================
-
     static void lambdaWithFuture() {
-
-        /*
-         * CompletableFuture uses functional
-         * interfaces heavily.
-         */
-
-        /*
-         * supplyAsync()
-         *
-         * Supplier<T>
-         *
-         * () -> T
-         */
-
-        /*
-         * thenApply()
-         *
-         * Function<T,R>
-         *
-         * T -> R
-         */
-
-        /*
-         * thenAccept()
-         *
-         * Consumer<T>
-         *
-         * T -> void
-         */
-
-        /*
-         * Example:
-         */
-
-        /*
-        CompletableFuture
-                .supplyAsync(() -> fetchData())
-                .thenApply(data -> transform(data))
-                .thenAccept(result -> save(result));
-        */
     }
-
-
     // ============================================================
     // 16. LAMBDA VS ANONYMOUS CLASS
     // ============================================================
@@ -624,28 +572,6 @@ public class LambdaDeepDive {
 
 
         r.run();
-
-
-        /*
-         * Conceptually:
-         *
-         * Java source
-         *      ↓
-         * Lambda
-         *      ↓
-         * Compiler
-         *      ↓
-         * invokedynamic
-         *      ↓
-         * LambdaMetafactory
-         *      ↓
-         * Functional interface instance
-         *      ↓
-         * Runnable.run()
-         *
-         *
-         * Exact implementation is JVM-dependent.
-         */
     }
 
 
@@ -654,31 +580,17 @@ public class LambdaDeepDive {
     // ============================================================
 
     static int operate(
-            int a,
-            int b,
-            Calculator calculator) {
-
-        /*
-         * Calculator is behavior passed as argument.
-         */
+            int a,  int b,  Calculator calculator) {
 
         return calculator.calculate(a, b);
     }
-
-
     static void higherOrderFunction() {
-
-        int addition =
-                operate(
-                        10,
-                        20,
+        int addition =  operate(   10, 20,
                         (a, b) -> a + b
                 );
 
-
         int multiplication =
-                operate(
-                        10,
+                operate(    10,
                         20,
                         (a, b) -> a * b
                 );
