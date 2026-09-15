@@ -207,119 +207,42 @@ public class LambdaDeepDive {
 
     static void functionComposition() {
 
-        Function<Integer, Integer> multiplyByTwo =
-                x -> x * 2;
+        Function<Integer, Integer> multiplyByTwo =x -> x * 2;
 
-        Function<Integer, Integer> addTen =
-                x -> x + 10;
-
-
-        /*
-         * andThen:
-         *
-         * first multiplyByTwo
-         * then addTen
-         */
-
-        Function<Integer, Integer> pipeline =
-                multiplyByTwo.andThen(addTen);
-
-
-        /*
-         * 5
-         * ↓
-         * 5 * 2 = 10
-         * ↓
-         * 10 + 10 = 20
-         */
-
+        Function<Integer, Integer> addTen = x -> x + 10;
+        Function<Integer, Integer> pipeline =multiplyByTwo.andThen(addTen);
         System.out.println(
                 pipeline.apply(5)
         );
 
-
-        /*
-         * compose:
-         *
-         * addTen first
-         * multiplyByTwo second
-         */
-
-        Function<Integer, Integer> reversePipeline =
-                multiplyByTwo.compose(addTen);
-
-
-        /*
-         * 5
-         * ↓
-         * 5 + 10 = 15
-         * ↓
-         * 15 * 2 = 30
-         */
-
+        Function<Integer, Integer> reversePipeline =  multiplyByTwo.compose(addTen);
         System.out.println(
                 reversePipeline.apply(5)
         );
     }
-
 
     // ============================================================
     // 11. STREAM + LAMBDA
     // ============================================================
 
     static void streamsWithLambda() {
-
-        List<Integer> numbers =
-                List.of(1, 2, 3, 4, 5, 6);
-
-
-        /*
-         * filter()
-         *
-         * expects Predicate<T>
-         *
-         * T -> boolean
-         */
+        List<Integer> numbers =List.of(1, 2, 3, 4, 5, 6);
 
         List<Integer> evenNumbers =
                 numbers.stream()
-                        .filter(x -> x % 2 == 0)
-                        .toList();
-
-
-        System.out.println(
-                "Even: " + evenNumbers
+                        .filter(x -> x % 2 == 0) .toList();
+        System.out.println(   "Even: " + evenNumbers
         );
-
-
-        /*
-         * map()
-         *
-         * expects Function<T,R>
-         *
-         * T -> R
-         */
-
         List<Integer> doubled =
-                numbers.stream()
-                        .map(x -> x * 2)
+                numbers.stream()   .map(x -> x * 2)
                         .toList();
 
 
         System.out.println(
                 "Doubled: " + doubled
         );
-
-
-        /*
-         * forEach()
-         *
-         * expects Consumer<T>
-         */
-
         numbers.stream()
-                .forEach(x ->
-                        System.out.println(
+                .forEach(x ->         System.out.println(
                                 "Number: " + x
                         )
                 );
@@ -368,21 +291,8 @@ public class LambdaDeepDive {
     // ============================================================
 
     static void primitiveSpecialization() {
-
-        /*
-         * Function<Integer,Integer>
-         *
-         * Can involve boxing/unboxing.
-         */
-
         Function<Integer, Integer> normal =
                 x -> x * x;
-
-
-        /*
-         * IntUnaryOperator works directly with int.
-         */
-
         IntUnaryOperator primitive =
                 x -> x * x;
 
@@ -390,7 +300,6 @@ public class LambdaDeepDive {
         System.out.println(
                 normal.apply(10)
         );
-
         System.out.println(
                 primitive.applyAsInt(10)
         );
@@ -455,16 +364,6 @@ public class LambdaDeepDive {
 
         anonymous.run();
         lambda.run();
-
-
-        /*
-         * Important:
-         *
-         * Lambda is NOT simply an anonymous class.
-         *
-         * Modern Java generally uses invokedynamic
-         * for lambda implementation.
-         */
     }
 
 
