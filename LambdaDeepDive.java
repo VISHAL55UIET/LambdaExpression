@@ -12,124 +12,60 @@ public class LambdaDeepDive {
         int calculate(int a, int b);
     }
 
-
     // ============================================================
     // 2. LAMBDA BASICS
     // ============================================================
 
     static void lambdaBasics() {
-
-        // Normal implementation
         Calculator add = (a, b) -> a + b;
-
-        // Multiple statements
         Calculator multiply = (a, b) -> {
             int result = a * b;
             return result;
         };
-
         System.out.println("Add      : " + add.calculate(10, 20));
         System.out.println("Multiply : " + multiply.calculate(10, 20));
     }
-
-
     // ============================================================
     // 3. BUILT-IN FUNCTIONAL INTERFACES
     // ============================================================
-
     static void functionalInterfaces() {
-
         // Predicate<T>
         // T -> boolean
-
-        Predicate<Integer> isEven =
-                x -> x % 2 == 0;
-
+        Predicate<Integer> isEven =x -> x % 2 == 0;
         System.out.println("Is 10 even? " + isEven.test(10));
-
-
         // Function<T, R>
         // T -> R
-
-        Function<String, Integer> length =
-                str -> str.length();
-
+        Function<String, Integer> length =str -> str.length();
         System.out.println(
                 "Length: " + length.apply("Vishal")
         );
-
-
         // Consumer<T>
         // T -> void
-
-        Consumer<String> printer =
-                str -> System.out.println("Consumer: " + str);
-
+        Consumer<String> printer =str -> System.out.println("Consumer: " + str);
         printer.accept("Hello Lambda");
-
-
         // Supplier<T>
         // () -> T
-
-        Supplier<Double> randomNumber =
-                () -> Math.random();
-
-        System.out.println(
-                "Random: " + randomNumber.get()
+        Supplier<Double> randomNumber =() -> Math.random();
+        System.out.println( "Random: " + randomNumber.get()
         );
-
-
         // UnaryOperator<T>
         // T -> T
-
-        UnaryOperator<Integer> square =
-                x -> x * x;
-
-        System.out.println(
-                "Square: " + square.apply(5)
+        UnaryOperator<Integer> square =x -> x * x;
+        System.out.println(  "Square: " + square.apply(5)
         );
-
-
         // BinaryOperator<T>
         // (T,T) -> T
-
-        BinaryOperator<Integer> sum =
-                (a, b) -> a + b;
-
-        System.out.println(
-                "Sum: " + sum.apply(10, 20)
+        BinaryOperator<Integer> sum = (a, b) -> a + b;
+        System.out.println(  "Sum: " + sum.apply(10, 20)
         );
     }
-
-
     // ============================================================
     // 4. TARGET TYPING
     // ============================================================
-
     static void targetTyping() {
+        Function<Integer, Integer> doubleValue =x -> x * 2;
 
-        /*
-         * Lambda itself does NOT have a standalone type.
-         *
-         * Java needs a target functional interface.
-         */
-
-        Function<Integer, Integer> doubleValue =
-                x -> x * 2;
-
-        System.out.println(
-                "Double: " + doubleValue.apply(10)
-        );
-
-
-        /*
-         * This would NOT compile:
-         *
-         * var x = y -> y * 2;
-         *
-         * Because Java doesn't know which functional
-         * interface should be used.
-         */
+        System.out.println(  "Double: " + doubleValue.apply(10));
     }
 
 
